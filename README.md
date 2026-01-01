@@ -93,7 +93,7 @@ Channel and segment options are dynamically updated in the UI based on the selec
    ```
 3. Launch the UI:
    ```matlab
-   Data_extraction_functions_v12
+   Main_UI_V1
    ```
 4. Use the UI to select subjects, activities, and data types, then click **Extract Data**.
 
