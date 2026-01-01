@@ -86,9 +86,9 @@ function processCenterOfMass1_V1(activity, all_time_stamps, all_time_series, xdf
 
     filename_csv = [activity '_COM.csv']; 
     filename_mat = [activity '_COM.mat']; 
-    writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\CSV', filename_csv));
+    writeToExcel(dataStruct, fullfile('...\Output Data\CSV', filename_csv));
     disp('csv saved')
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT', filename_mat), 'dataStruct');
+    save(fullfile('...\Output Data\MAT', filename_mat), 'dataStruct');
     disp('mat saved')
 end
 

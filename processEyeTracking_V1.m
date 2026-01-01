@@ -31,14 +31,14 @@ function processEyeTracking_V1(subjectStart, subjectEnd, activity, Channel)
                 xlsxFileName = strcat(subjectID, '_ET_allAct.xlsx');
                 
                 % Check if the .xlsx file exists
-                if ~exist(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\EyeTracking_Extracted_EXCELs', xlsxFileName), 'file')
+                if ~exist(fullfile('...\Input Data\EyeTracking_Extracted_EXCELs', xlsxFileName), 'file')
                     warning(['File ' xlsxFileName ' does not exist. Skipping this subject.']);
                     continue;
                 end
                 
                 % Read the .xlsx file into a table and print column names
                 try
-                    dataTable = readtable(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\EyeTracking_Extracted_EXCELs', xlsxFileName), 'VariableNamingRule', 'preserve');
+                    dataTable = readtable(fullfile('...\Input Data\EyeTracking_Extracted_EXCELs', xlsxFileName), 'VariableNamingRule', 'preserve');
                     % Print column names
                     disp('Column names:');
                     disp(dataTable.Properties.VariableNames);
@@ -151,8 +151,8 @@ function processEyeTracking_V1(subjectStart, subjectEnd, activity, Channel)
 
 %     filename_csv = [activity '_ET_' Channel '.csv']; 
     filename_mat = [activity '_ET_' Channel '.mat']; 
-%     writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\CSV', filename_csv));
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT', filename_mat), 'dataStruct');
+%     writeToExcel(dataStruct, fullfile('...\NASA Data Extraction\Output Data\CSV', filename_csv));
+    save(fullfile('...\Output Data\MAT', filename_mat), 'dataStruct');
     disp('mat saved')
 end
 

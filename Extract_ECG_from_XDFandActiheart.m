@@ -44,7 +44,7 @@ allData = struct();
 % Loop through each .xdf file
 for i = 1:length(xdfFiles)
     % Load the .xdf file
-    dataCellArray = load_xdf(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\xdf_RawData', xdfFiles{i}));
+    dataCellArray = load_xdf(fullfile('...\Input Data\xdf_RawData', xdfFiles{i}));
 
     
     % Find the TimestampStream data
@@ -73,7 +73,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Open the file for reading
-fid = fopen(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\Actiheart_RawData', filename), 'r');
+fid = fopen(fullfile('...\Input Data\Actiheart_RawData', filename), 'r');
 
 % Read and ignore header lines until we reach the data
 headerLines = 15; % Number of lines to skip before the data starts
@@ -173,7 +173,7 @@ structName = [prefix, '_HR_allAct'];
 
 % Save all data to the constructed .mat file with the appropriate structure name
 eval([structName ' = allData;']);
-save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\Actiheart_Extracted_MATs', matFileName), structName);
+save(fullfile('...\Input Data\Actiheart_Extracted_MATs', matFileName), structName);
 dis('data saved')
 
 % Define the function to generate filenames

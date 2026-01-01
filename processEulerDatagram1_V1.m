@@ -114,8 +114,8 @@ function processEulerDatagram1_V1(activity, additionalSegment,all_time_stamps, a
 
 %    filename_csv = [activity '_Xsens_' additionalSegment '.csv'];
    filename_mat = [activity '_Xsens_EulerXYZ_' additionalSegment '.mat'];
-%    writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\CSV', filename_csv));
-   save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\MAT', filename_mat), 'dataStruct');
+%    writeToExcel(dataStruct, fullfile('...\Output Data\CSV', filename_csv));
+   save(fullfile('...\Output Data\MAT', filename_mat), 'dataStruct');
     disp('mat saved')
 end
 

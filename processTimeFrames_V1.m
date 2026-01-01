@@ -165,9 +165,9 @@ function processTimeFrames_V1(activity, all_time_stamps, all_time_series, xdfNam
     filename_csv = [activity_out '_TimeFrames.csv'];
     filename_mat = [activity_out '_TimeFrames.mat'];
 
-    writeToExcel(mod_dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\CSV', filename_csv));
+    writeToExcel(mod_dataStruct, fullfile('...\Output Data\CSV', filename_csv));
     disp('csv saved')
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\MAT', filename_mat), 'mod_dataStruct');
+    save(fullfile('...\Output Data\MAT', filename_mat), 'mod_dataStruct');
     disp('mat saved')
 end
 

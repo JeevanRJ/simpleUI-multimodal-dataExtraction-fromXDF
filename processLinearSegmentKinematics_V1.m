@@ -123,10 +123,10 @@ function processLinearSegmentKinematics_V1(activity, additionalInput, additional
     filename_csv = [activity '_Xsens_' additionalInput '_' additionalSegment '.csv'];
     filename_mat = [activity '_Xsens_' additionalInput '_' additionalSegment '.mat'];
 
-    writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\CSV', filename_csv));
+    writeToExcel(dataStruct, fullfile('....\Output Data\CSV', filename_csv));
     disp('csv file saved')
 
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\MAT', filename_mat), 'dataStruct');
+    save(fullfile('....\Output Data\MAT', filename_mat), 'dataStruct');
     disp('mat file saved')
 end
 

@@ -85,11 +85,11 @@ function processAngularKinematics1_V1(activity, additionalInput, additionalSegme
     end
 
     filename_csv = [activity '_Xsens_' additionalInput '_' additionalSegment '.csv'];
-    writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\CSV', filename_csv));
+    writeToExcel(dataStruct, fullfile('...\Output Data\CSV', filename_csv));
     disp('csv saved');
 
     filename_mat = [activity '_Xsens_' additionalInput '_' additionalSegment '.mat'];
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\MAT', filename_mat), 'dataStruct');
+    save(fullfile('...\Output Data\MAT', filename_mat), 'dataStruct');
     disp('mat saved');
 end
 

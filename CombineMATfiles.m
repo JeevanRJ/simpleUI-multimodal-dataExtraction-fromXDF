@@ -20,7 +20,7 @@ function combineEMGData()
     for i = 1:length(matFiles)
         % Load the current .mat file
         currentFile = matFiles{i};
-        loadedData = load(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT', currentFile));
+        loadedData = load(fullfile('...\Output Data\MAT', currentFile));
         dataStruct = loadedData.dataStruct;
 
         % Extract the muscle name from the filename
@@ -59,7 +59,7 @@ function combineEMGData()
     EMGAllStruct = forceBasicTypes(EMGAllStruct);
     
     % Save the new struct if needed
-    save('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT\AllAct_EMG_Combined.mat', 'EMGAllStruct');
+    save('..\Output Data\MAT\AllAct_EMG_Combined.mat', 'EMGAllStruct');
 
 end
 
@@ -80,7 +80,7 @@ function combineFFData()
     for i = 1:length(matFiles)
         % Load the current .mat file
         currentFile = matFiles{i};
-        loadedData = load(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT', currentFile));
+        loadedData = load(fullfile('...\Output Data\MAT', currentFile));
         dataStruct = loadedData.dataStruct;
 
         % Extract the muscle name from the filename
@@ -119,7 +119,7 @@ function combineFFData()
     FFAllStruct = forceBasicTypes(FFAllStruct);
 
     % Save the new struct if needed
-    save('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT\AllAct_FF_Combined.mat', 'FFAllStruct');
+    save('...\Output Data\MAT\AllAct_FF_Combined.mat', 'FFAllStruct');
 
 end
 

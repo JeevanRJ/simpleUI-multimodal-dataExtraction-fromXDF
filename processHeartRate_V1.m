@@ -34,13 +34,13 @@ for i = 1:size(xdfNames_HR, 1)
             matFileName = strcat(subjectID, '_HR_allAct.mat');
             
             % Check if the .mat file exists
-            if ~exist(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\Actiheart_Extracted_MATs', matFileName), 'file')
+            if ~exist(fullfile('...\Input Data\Actiheart_Extracted_MATs', matFileName), 'file')
                 warning(['File ' matFileName ' does not exist. Skipping this subject.']);
                 continue;
             end
             
             % Load the .mat file containing the heart rate data
-            matData = load(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\Actiheart_Extracted_MATs', matFileName));
+            matData = load(fullfile('...\Input Data\Actiheart_Extracted_MATs', matFileName));
             structName = strcat(subjectID, '_HR_allAct');
             
             % Check if the expected struct exists in the .mat data
@@ -162,9 +162,9 @@ assignin('base', 'dataStruct_HR', dataStruct);
     % Write the processed data to CSV
    filename_csv = ['AllAct_HR_' Matrix '.csv'];  % Use Matrix name in filename if 'All'
    filename_mat = ['AllAct_HR_' Matrix '.mat'];
-   writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\CSV', filename_csv));
+   writeToExcel(dataStruct, fullfile('...\Output Data\CSV', filename_csv));
    disp('csv saved')
-   save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT', filename_mat), 'dataStruct');
+   save(fullfile('...\Output Data\MAT', filename_mat), 'dataStruct');
    disp('mat saved')
 end
 

@@ -102,9 +102,9 @@ function processEMG_V1(activity, Channel,all_time_stamps, all_time_series, xdfNa
 
     filename_csv = [activity '_EMG_' Channel '.csv']; 
     filename_mat = [activity '_EMG_' Channel '.mat'];
-    writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\CSV', filename_csv));
+    writeToExcel(dataStruct, fullfile('...\Output Data\CSV', filename_csv));
     disp('csv saved')
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT', filename_mat), 'dataStruct');
+    save(fullfile('...\Output Data\MAT', filename_mat), 'dataStruct');
     disp('mat saved')
 end
 

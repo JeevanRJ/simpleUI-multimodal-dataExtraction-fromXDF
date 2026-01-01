@@ -44,9 +44,9 @@ function processForcePlate_V1(subjectStart, subjectEnd, activity, Channel, Matri
                 
                 % Import the corresponding text file
                 filename = strcat(trialID, '.txt');
-                if exist(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\ForcePlate_RawData', filename), 'file')
+                if exist(fullfile('...\Input Data\ForcePlate_RawData', filename), 'file')
                     % Read the text file into a table
-                    fileData = readtable(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Input Data\ForcePlate_RawData', filename), 'Delimiter', ',', 'ReadVariableNames', false);
+                    fileData = readtable(fullfile('...\Input Data\ForcePlate_RawData', filename), 'Delimiter', ',', 'ReadVariableNames', false);
       
                     % Check if the file has 6 columns
                     if width(fileData) ~= 6
@@ -135,158 +135,12 @@ function processForcePlate_V1(subjectStart, subjectEnd, activity, Channel, Matri
     end
 
     dataStruct = forceBasicTypes(dataStruct);
-    writeToExcel(dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\CSV', filename_csv));
+    writeToExcel(dataStruct, fullfile('...\Output Data\CSV', filename_csv));
     disp('csv saved')
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction\Output Data\MAT', filename_mat), 'dataStruct');
+    save(fullfile('...\Output Data\MAT', filename_mat), 'dataStruct');
     disp('mat saved')
 end
 
-
-% % Function to calculate Sway Area
-% function swayArea = calculateSwayArea(fileData)
-%    % Extract force and moment data
-%     Fz = fileData{:, 3};  % Vertical force
-%     Mx = fileData{:, 4};  % Moment around x direction
-%     My = fileData{:, 5};  % Moment around y direction
-% 
-%     % Add a small constant to Fz to avoid division by zero
-%     Fz = Fz + 1e-6;
-% 
-%     % Calculate the CoP coordinates
-%     CoP_x = ((My + Fz * 0) ./ Fz)*100;
-%     CoP_y = ((Mx + Fz * 0) ./ Fz)*100;
-% 
-%     % Check for NaN values
-%     if any(isnan(CoP_x)) || any(isnan(CoP_y))
-%         error('NaN values detected in CoP coordinates.');
-%     end
-% 
-%     % Calculate the sway area using the CoP coordinates
-%     swayArea = trapz(CoP_x, CoP_y);
-% 
-%     % If swayArea is NaN, check for issues in CoP coordinates or integration
-%     if isnan(swayArea)
-%         error('NaN value detected in swayArea calculation.');
-%     end
-% end
-
-% Function to calculate Sway Area using an ellipse
-function swayArea = calculateSwayArea(fileData)
-    % Extract force and moment data
-    Fz = fileData{:, 3};
-    Mx = fileData{:, 4};
-    My = fileData{:, 5};
-
-    Fz = Fz + 1e-6;
-
-    % Calculate CoP coordinates
-    CoP_x = ((My + Fz * 0) ./ Fz) * 100;
-    CoP_y = ((Mx + Fz * 0) ./ Fz) * 100;
-
-    % Check for NaN values
-    if any(isnan(CoP_x)) || any(isnan(CoP_y))
-        error('NaN values detected in CoP coordinates.');
-    end
-
-    % Calculate covariance matrix and eigenvalues
-    covarianceMatrix = cov(CoP_x, CoP_y);
-    eigenValues = eig(covarianceMatrix);
-
-    % Calculate sway area as 95% confidence ellipse area
-    swayArea = pi * sqrt(eigenValues(1)) * sqrt(eigenValues(2));
-
-    % Check for NaN in swayArea
-    if isnan(swayArea)
-        error('NaN value detected in swayArea calculation.');
-    end
-end
-
-
-
-% Function to calculate Sway Velocity
-function swayVelocity = calculateSwayVelocity(fileData)
- % Extract force and moment data
-   % Extract force and moment data
-    Fz = fileData{:, 3};  % Vertical force
-    Mx = fileData{:, 4};  % Moment around x direction
-    My = fileData{:, 5};  % Moment around y direction
-
-    Fz = Fz + 1e-6;
-
-    % Calculate CoP coordinates considering offsets (d_x and d_y)
-    d_x = 0;  % Replace with actual offset if applicable
-    d_y = 0;  % Replace with actual offset if applicable
-    CoP_x = ((My + Fz * d_x) ./ Fz) * 100;  % Convert to cm
-    CoP_y = ((Mx + Fz * d_y) ./ Fz) * 100;  % Convert to cm
-
-    % Calculate velocity from displacement
-    dt = 1 / 1000;  % Sampling rate is 1000 Hz, so dt is 1 ms
-
-    % Calculate the difference between consecutive CoP points
-    velocityX = diff(CoP_x) / dt;
-    velocityY = diff(CoP_y) / dt;
-
-    % Calculate the magnitude of the velocity vector
-    swayVelocity = sqrt(velocityX.^2 + velocityY.^2);
-
-    % Check for NaN values
-    if any(isnan(swayVelocity))
-        error('NaN values detected in swayVelocity calculation.');
-    end
-end
-
-% Function to calculate Path Length
-function pathLength = calculatePathLength(fileData)
-
-% Extract CoP coordinates
-    Fz = fileData{:, 3};  % Vertical force
-    Mx = fileData{:, 4};  % Moment around x direction
-    My = fileData{:, 5};  % Moment around y direction
-
-    Fz = Fz + 1e-6;
-    
-    % Calculate CoP coordinates
-    CoP_x = ((My + Fz * 0) ./ Fz) * 100; % Convert to centimeters
-    CoP_y = ((Mx + Fz * 0) ./ Fz) * 100; % Convert to centimeters
-    
-    % Calculate displacement between consecutive points
-    displacement = sqrt(diff(CoP_x).^2 + diff(CoP_y).^2);
-    
-    % Sum of displacements gives the path length
-    pathLength = sum(displacement);  % Path length in centimeters
-end
-
-% Function to sort dataStruct by activity order
-function dataStruct = sortByActivity(dataStruct, xdfNames_FF)
-    % Ensure xdfNames_FF is a cell array
-    if ~iscell(xdfNames_FF)
-        error('xdfNames_FF must be a cell array.');
-    end
-
-    % Initialize an empty cell array to collect unique activities
-    allActivities = {};
-
-    % Loop through each cell in xdfNames_FF to extract trialIDs
-    for i = 1:size(xdfNames_FF, 1)
-        for j = 1:size(xdfNames_FF, 2)
-            cellData = xdfNames_FF{i, j};
-            if ~iscell(cellData)
-                error('Each element of xdfNames_FF should be a cell array.');
-            end
-            
-            % Extract activities from trialIDs in the current cell
-            for k = 1:length(cellData)
-                trialID = cellData{k};
-                parts = strsplit(trialID, '-');
-                if numel(parts) >= 3
-                    activity = parts{3};  % Extract the activity part
-                    if ~ismember(activity, allActivities)
-                        allActivities{end+1} = activity;  % Append unique activity
-                    end
-                end
-            end
-        end
-    end
 
     % Create a map to order activities
     activityOrder = containers.Map(allActivities, 1:length(allActivities));
@@ -309,9 +163,6 @@ function dataStruct = sortByActivity(dataStruct, xdfNames_FF)
 end
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 % Function to generate subject list based on start and end

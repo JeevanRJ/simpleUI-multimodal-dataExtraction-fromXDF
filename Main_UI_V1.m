@@ -250,7 +250,7 @@ function extractData(subjectStart, subjectEnd, activity, dataType, additionalInp
                     % Loop through each .xdf file for the current subject
                     for i = 1:length(xdfFiles)
                         % Load the .xdf file
-                        filePath = fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Input Data\xdf_RawData', xdfFiles{i});    
+                        filePath = fullfile('...\Input Data\xdf_RawData', xdfFiles{i});    
                         if exist(filePath, 'file')
                             dataCellArray = load_xdf(filePath);
                             loadedData{s, i} = dataCellArray;

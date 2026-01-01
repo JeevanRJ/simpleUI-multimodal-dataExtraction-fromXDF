@@ -116,9 +116,9 @@ function SD_processVideoFrames_V1(activity, all_time_stamps, all_time_series, xd
     filename_csv = [activityName '_VideoFrames.csv']; 
     filename_mat = [activityName '_VideoFrames.mat']; 
 
-    writeToExcel(mod_dataStruct, fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\CSV', filename_csv));
+    writeToExcel(mod_dataStruct, fullfile('...\Output Data\CSV', filename_csv));
     disp('csv saved')
-    save(fullfile('R:\Research Projects\NASA_Full\NASA Data Extraction_CF\Output Data\MAT', filename_mat), 'mod_dataStruct');
+    save(fullfile('...\Output Data\MAT', filename_mat), 'mod_dataStruct');
     disp('mat saved')
 end
 
